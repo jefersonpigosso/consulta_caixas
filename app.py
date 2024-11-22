@@ -20,8 +20,6 @@ if 'df' not in sts:
     lista_caixas()
 if 'caixa' not in sts:
     sts.caixa = ''
-if 'status_caixa' not in sts:
-    sts.status_caixa = ''
 
 ######################################################
 
