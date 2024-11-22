@@ -19,7 +19,7 @@ def lista_caixas():
 
     for lista in listas:
 
-        df_temp = pd.read_excel(rf'files\{lista}', usecols=['Caixa'], dtype='string')
+        df_temp = pd.read_excel(rf'files/{lista}', usecols=['Caixa'], dtype='string')
         df_temp['lista'] = lista[:-5]
 
         df = pd.concat([df, df_temp], ignore_index=True)
