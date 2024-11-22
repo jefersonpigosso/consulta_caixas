@@ -19,7 +19,7 @@ def lista_caixas():
 
     for lista in listas:
 
-        df_temp = pd.read_excel(rf'files/{lista}', usecols=['Caixa'], dtype='string')
+        df_temp = pd.read_excel(rf'files/{lista}', usecols=['Caixa', 'Destino'], dtype='string')
         df_temp['lista'] = lista[:-5]
 
         df = pd.concat([df, df_temp], ignore_index=True)
@@ -37,6 +37,7 @@ if 'listas' not in sts: listas()
 if 'lista' not in sts: sts.lista = sts.listas[0]
 if 'df' not in sts: lista_caixas()
 if 'caixa' not in sts: sts.caixa = ''
+if 'destino' not in sts: sts.destino = ''
 
 sts.df_filtrado = sts.df[sts.df['lista'] == sts.lista]
 
@@ -45,11 +46,11 @@ sts.df_filtrado = sts.df[sts.df['lista'] == sts.lista]
 if len(sts.caixa) == 8:
 
     if consulta_caixa():
-        st.toast(body=f'Separar!', icon='✅')
+        st.toast(body=sts.df_filtrado[sts.df_filtrado['Caixa'] == sts.caixa]['Destino'].iloc[0], icon='✅')
 
     else:
         st.toast(body=f'Armazenar!', icon='⚠️')
-    
+
     sts.caixa = ''
 
 ######################################################
