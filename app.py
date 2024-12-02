@@ -43,13 +43,21 @@ sts.df_filtrado = sts.df[sts.df['lista'] == sts.lista]
 
 ######################################################
 
-if len(sts.caixa) == 8:
+if len(sts.caixa) > 1:
 
-    if consulta_caixa():
-        st.toast(body=sts.df_filtrado[sts.df_filtrado['Caixa'] == sts.caixa]['Destino'].iloc[0], icon='✅')
+    if sts.lista == 'Saldo Qualidade':
+        if consulta_caixa():
+            st.toast(body='Armazenar!', icon='✅')
+
+        else:
+            st.toast(body=f'Saldo!', icon='⚠️')
 
     else:
-        st.toast(body=f'Armazenar!', icon='⚠️')
+        if consulta_caixa():
+            st.toast(body=sts.df_filtrado[sts.df_filtrado['Caixa'] == sts.caixa]['Destino'].iloc[0], icon='✅')
+
+        else:
+            st.toast(body=f'Armazenar!', icon='⚠️')
 
     sts.caixa = ''
 
@@ -57,5 +65,5 @@ if len(sts.caixa) == 8:
 
 st.selectbox(label='Lista Coleta', options=sts.listas, key='lista')
 
-st.text_input(label='Caixa', key='caixa', max_chars=8)
-st.text(f'Total de caixas: {len(sts.df_filtrado):,}'.replace(",", "."))
+st.text_input(label='Caixa', key='caixa', max_chars=20)
+st.text(f'Total: {len(sts.df_filtrado):,}'.replace(",", "."))
